@@ -1,0 +1,13 @@
+<app-game-control (numberEmitted)="onNumberEmitted($event)"></app-game-control>
+
+<div>
+  <ng-container *ngFor="let number of numbers">
+    <ng-container *ngIf="number % 2 === 0; then evenNumber; else oddNumber"></ng-container>
+    <ng-template #evenNumber>
+      <p style="color: blue;">Even - {{ number }}</p>
+    </ng-template>
+    <ng-template #oddNumber>
+      <p style="color: red;">Odd - {{ number }}</p>
+    </ng-template>
+  </ng-container>
+</div>
