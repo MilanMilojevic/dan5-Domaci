@@ -1,13 +1,17 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-even',
-  template: '<p [ngStyle]="{ color: isEven ? \'blue\' : \'black\' }">Even - {{ number }}</p>',
+  template: '<p class="even" *ngIf="isEven">Even - {{ number }}</p>',
   styleUrls: ['./even.component.css']
 })
-export class EvenComponent {
+export class EvenComponent implements OnChanges {
   @Input() number: number;
-  get isEven(): boolean {
-    return this.number % 2 === 0;
+  isEven = false;
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.number) {
+      this.isEven = this.number % 2 === 0;
+    }
   }
 }

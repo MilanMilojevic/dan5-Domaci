@@ -1,13 +1,17 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-odd',
-  template: '<p [ngStyle]="{ color: isOdd ? \'red\' : \'black\' }">Odd - {{ number }}</p>',
+  template: '<p class="odd" *ngIf="isOdd">Odd - {{ number }}</p>',
   styleUrls: ['./odd.component.css']
 })
-export class OddComponent {
+export class OddComponent implements OnChanges {
   @Input() number: number;
-  get isOdd(): boolean {
-    return this.number % 2 !== 0;
+  isOdd = false;
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.number) {
+      this.isOdd = this.number % 2 !== 0;
+    }
   }
 }
